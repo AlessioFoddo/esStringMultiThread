@@ -35,7 +35,7 @@ public class MyThread extends Thread {
                         risposta = stringaRicevuta.charAt(i) + risposta;
                     }
                 }else if(stringaRicevuta.lastIndexOf(":") != -1){
-                    risposta = Integer.toString(stringaRicevuta.length());
+                    risposta = Integer.toString((stringaRicevuta.length()) - 1);
                 }else{
                     risposta = "COMANDO NON ACCETTATO";
                 }
