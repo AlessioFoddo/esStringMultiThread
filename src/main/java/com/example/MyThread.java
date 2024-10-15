@@ -20,28 +20,43 @@ public class MyThread extends Thread {
             DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
             String stringaRicevuta; 
+            int scelta;
             String risposta;
             do {
                 risposta = "";
-                stringaRicevuta = in.readLine();
-                System.out.println("La stringa ricevuta è: " + stringaRicevuta);
-
-                if(stringaRicevuta.lastIndexOf("^") != -1){
-                   risposta = stringaRicevuta.replace("^", "").toUpperCase();
-                }else if(stringaRicevuta.lastIndexOf("-") != -1){
-                    risposta = stringaRicevuta.replace("-", "").toLowerCase();
-                }else if(stringaRicevuta.lastIndexOf("<") != -1){
-                    for (int i = 0; i < (stringaRicevuta.length() - 1); i++) {
-                        risposta = stringaRicevuta.charAt(i) + risposta;
-                    }
-                }else if(stringaRicevuta.lastIndexOf(":") != -1){
-                    risposta = Integer.toString((stringaRicevuta.length()) - 1);
-                }else{
-                    risposta = "COMANDO NON ACCETTATO";
+                scelta = Integer.parseInt(in.readLine());
+                switch (scelta) {
+                    case 0:
+                        System.out.println("Connessione chiusa");
+                        break;
+                    case 1:
+                        stringaRicevuta = in.readLine();
+                        
+                        risposta = stringaRicevuta.toUpperCase();
+                        break;
+                    case 2:
+                        stringaRicevuta = in.readLine();
+                        
+                        risposta = stringaRicevuta.toLowerCase();
+                        break;
+                    case 3:
+                        stringaRicevuta = in.readLine();
+                        
+                        for (int i = 0; i < (stringaRicevuta.length()); i++) {
+                            risposta = stringaRicevuta.charAt(i) + risposta;
+                        }
+                        break;
+                    case 4:
+                        stringaRicevuta = in.readLine();
+                        
+                        risposta = Integer.toString((stringaRicevuta.length()));
+                        break;
+                    default:
+                        risposta = "COMANDO NON ACCETTATO";
+                        break;
                 }
-                
                 out.writeBytes(risposta + "\n");
-            } while (!stringaRicevuta.equals("!"));
+            } while (scelta != 0);
             
             s.close();
         } catch (IOException e) {
